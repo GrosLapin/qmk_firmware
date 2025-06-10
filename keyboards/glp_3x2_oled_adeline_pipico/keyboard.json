@@ -1,0 +1,38 @@
+{
+    "manufacturer": "Martin Morterol",
+    "keyboard_name": "glp_3x2_oled_adeline_pipico",
+    "maintainer": "GrosLapin",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true
+    },
+    "matrix_pins": {
+        "cols": ["GP12","GP11","GP10"],
+        "rows": ["GP21","GP20"]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "y": 0 , "x": 0  }, {"matrix": [0, 1], "y": 0 , "x": 0  }, {"matrix": [0, 2], "y": 0 , "x": 0  },
+                {"matrix": [1, 0], "y": 0 , "x": 0  }, {"matrix": [1, 1], "y": 0 , "x": 0  }, {"matrix": [1, 2], "y": 0 , "x": 0  },
+            ]
+        }
+    },
+    "split": {
+        "enabled": false
+    }
+}
