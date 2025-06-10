@@ -24,12 +24,10 @@ combo_t                key_combos[] = {
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case cb_to_maj: {
-            oled_write_ln("to maj", false);
             layer_move(maj);
             break;
         }
         case cb_to_min: {
-            oled_write_ln("to min", false);
             layer_move(min);
             break;
         }
@@ -54,8 +52,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
-    uprintf("call oled");
-    oled_write_ln("Test OLED", false);
+    oled_set_cursor(10, 4);
+
+    switch (get_highest_layer(layer_state)) {
+        case min:
+            oled_write("Min", false);
+            break;
+
+        case maj:
+            oled_write("Maj", false);
+            break;
+    }
+
     return false;
 }
 #endif
