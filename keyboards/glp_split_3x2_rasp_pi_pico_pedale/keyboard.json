@@ -10,8 +10,7 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "oled": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP12","GP11","GP10"],
