@@ -31,6 +31,11 @@ Pin :
 
 qmk compile -kb glp_split_3x2_rasp_pi_pico_pedale -km default
 qmk flash -kb glp_split_3x2_rasp_pi_pico_pedale -km default
+
+
+Si #define EE_HANDS  /// bien mais rend le flashing tres tres lon
+qmk flash -kb glp_split_3x2_rasp_pi_pico_pedale -km default -bl uf2-split-left
+qmk flash -kb glp_split_3x2_rasp_pi_pico_pedale -km default -bl uf2-split-right
  
 
 ## Bootloader
