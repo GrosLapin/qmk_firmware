@@ -3,6 +3,12 @@
 #include "keymap_french.h"
 #include "i2c_master.h"
 
+void keyboard_post_init_user(void) {
+    uprintf("keyboard_post_init_user");
+    wait_ms(2000);
+    uprintf("end sleep");
+}
+
 #define ____ KC_TRNS
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -21,9 +27,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
-    uprintf("!!keyboard_post_init_user");
-    wait_ms(2000);
-    uprintf("!!end sleep");
     uprintf("call oled");
     oled_write_ln("Test OLED", false);
     return false;
