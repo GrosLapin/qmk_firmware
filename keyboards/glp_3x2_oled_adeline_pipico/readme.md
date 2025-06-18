@@ -15,7 +15,8 @@ Pin :
     row 0 => gpio21
     row 1 => gpio20
 
-
+ I2C1_SCL_PIN GP3
+ I2C1_SDA_PIN GP2
 
 
 qmk compile -kb glp_3x2_oled_adeline_pipico -km default
