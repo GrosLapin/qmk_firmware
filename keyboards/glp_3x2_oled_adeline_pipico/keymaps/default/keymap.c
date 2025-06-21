@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [maj] = LAYOUT(
         A_,  N_, O_,
-        I_,  I_, point_excla_
+        I_,  U_, point_excla_
     )
     // clang-format on
 
