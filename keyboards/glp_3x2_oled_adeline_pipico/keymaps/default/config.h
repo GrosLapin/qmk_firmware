@@ -4,4 +4,4 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP3
 #define I2C1_SDA_PIN GP2
-#define OLED_IC OLED_IC_SH1106
+// #define OLED_IC OLED_IC_SH1106
