@@ -5,3 +5,9 @@
 #define I2C1_SDA_PIN GP2
 #define I2C1_SCL_PIN GP3
 // #define OLED_IC OLED_IC_SH1106
+
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_USART_TX_PIN GP0
+#define SERIAL_USART_RX_PIN GP1
+
+#define SPLIT_HAND_PIN 28 // hight mean left, should be link to 3v3 with 10kohm res on left, and to ground on right
