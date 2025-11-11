@@ -5,8 +5,8 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
-        "command": true,
+        "bootmagic": false,
+        "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
