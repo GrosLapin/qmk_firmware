@@ -10,12 +10,6 @@
  * Si une des moitié marche pas, unplug tout, plug le jack PUIS le usb
  */
 
-#define Enter_Maj LT(0, KC_ENTER)
-
-enum custom_keycodes {
-    Range_display = SAFE_RANGE, //
-};
-
 enum layer_names {
     Graphite, //
     Azerty,
@@ -23,6 +17,16 @@ enum layer_names {
     Lol_Varus_Cait,
     Dispatch_layers,
     Empty
+};
+
+// tap_hold
+#define Enter_Maj LT(0, KC_ENTER)
+
+// full redifined
+#define CtrlSpace_Ctrl LT(0, KC_SPC)
+
+enum custom_keycodes {
+    Range_display = SAFE_RANGE, //
 };
 
 const char* layer_names_str[] = {
@@ -57,19 +61,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [Lol_classique] =  LAYOUT(
      ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_A,        FR_Z,        FR_E,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                     KC_LEFT_CTRL,      ____,         FR_B,            /*||*/     ____,        ____,        OSL(Dispatch_layers)
+                                     CtrlSpace_Ctrl,      ____,         FR_B,            /*||*/     ____,        ____,        TO(Dispatch_layers)
     ),
 
     [Lol_Varus_Cait] =  LAYOUT(
      ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_Z,        FR_E,        FR_A,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                     KC_LEFT_CTRL,      ____,         FR_B,            /*||*/    ____,        ____,        OSL(Dispatch_layers)
+                                   CtrlSpace_Ctrl,      ____,         FR_B,            /*||*/    ____,        ____,        TO(Dispatch_layers)
     ),
+
 
     [Dispatch_layers] =  LAYOUT(
     ____,           ____,       ____,               ____,             ____,        ____,/*||*/    ____,        ____,        ____,          ____,        ____,       ____,
@@ -91,6 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool range_displayed = false;
 
+// a quoi sert le bool de retour ?
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case Range_display:
@@ -115,6 +121,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             }
             // On tap, continue default handling to act as KC_A.
             return true;
+
+        // full rebinded
+        case CtrlSpace_Ctrl:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_SPC)); // Intercept tap function to send Ctrl-C
+            } else {
+                if (record->tap.count == 0) {          // On hold.
+                    if (record->event.pressed) {       // On press
+                        register_code(KC_LEFT_CTRL);   // Press.
+                    } else {                           // On release.
+                        unregister_code(KC_LEFT_CTRL); // Release.
+                    }
+                }
+            }
+            return false;
     }
     return true;
 }
