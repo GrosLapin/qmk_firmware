@@ -15,6 +15,7 @@ enum layer_names {
     Azerty,
     Lol_classique,
     Lol_Varus_Cait,
+    Wakfu_combat,
     Dispatch_layers,
     Empty
 };
@@ -34,6 +35,7 @@ const char* layer_names_str[] = {
     "Azerty",          //
     "Lol classique",   //
     "Lol  Varus_Cait", //
+    "Wakfu Combat",    //
     "Dispatch layers", //
     "Empty"            //
 };
@@ -61,27 +63,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [Lol_classique] =  LAYOUT(
      ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_A,        FR_Z,        FR_E,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                     CtrlSpace_Ctrl,      ____,         FR_B,            /*||*/     ____,        ____,        TO(Dispatch_layers)
+                                    KC_SPC,   CtrlSpace_Ctrl,        FR_B,             /*||*/     ____,        ____,        TO(Graphite)
     ),
 
     [Lol_Varus_Cait] =  LAYOUT(
      ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_Z,        FR_E,        FR_A,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                   CtrlSpace_Ctrl,      ____,         FR_B,            /*||*/    ____,        ____,        TO(Dispatch_layers)
+                                   KC_SPC,   CtrlSpace_Ctrl,        FR_B,              /*||*/    ____,        ____,        TO(Graphite)
+    ),
+
+
+    [Wakfu_combat] =  LAYOUT(
+    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+                                    KC_SPC,     KC_MS_BTN1,   FR_R,                    /*||*/    ____,        ____,        TO(Graphite)
     ),
 
 
     [Dispatch_layers] =  LAYOUT(
-    ____,           ____,       ____,               ____,             ____,        ____,/*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    ____,           ____,       ____,               ____,             ____,        ____,/*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    ____,           TO(Azerty), TO(Lol_Varus_Cait), TO(Lol_classique),TO(Graphite),____,/*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    ____,           ____,       ____,               ____,             ____,        ____,/*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-                                    ____,     ____,        ____,                        /*||*/    ____,        ____,        ____
+    ____,           ____,       ____,               ____,             ____,        ____,        /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,           ____,       ____,               ____,             ____,        ____,        /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,           TO(Wakfu_combat), TO(Lol_Varus_Cait), TO(Lol_classique),TO(Graphite),____,  /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,           ____,       ____,               ____,             ____,        ____,        /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+                                    ____,     ____,        ____,                                /*||*/    ____,        ____,        TO(Graphite)
     ),
 
     [Empty] =  LAYOUT(
