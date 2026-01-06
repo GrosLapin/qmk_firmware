@@ -17,3 +17,7 @@
 #define SPLIT_USB_TIMEOUT_POLL 10
 
 #define SPLIT_WATCHDOG_ENABLE
+
+// je veux que hold enter + fast a => A maj, pas "a\n"
+// check PERMISSIVE_HOLD si ça me plait pas : https://docs.qmk.fm/tap_hold
+#define HOLD_ON_OTHER_KEY_PRESS
