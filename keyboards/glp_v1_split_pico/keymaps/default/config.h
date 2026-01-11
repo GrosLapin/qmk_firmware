@@ -21,3 +21,6 @@
 // je veux que hold enter + fast a => A maj, pas "a\n"
 // check PERMISSIVE_HOLD si ça me plait pas : https://docs.qmk.fm/tap_hold
 #define HOLD_ON_OTHER_KEY_PRESS
+
+// Speculative Hold peut etre utile HOLD_ON_OTHER_KEY_PRESS marche bien quand on est sur sur le clavier
+// mais si on fait un shift + click souris, on mange quand meme les 200ms de tap/hold

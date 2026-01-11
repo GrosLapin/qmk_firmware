@@ -25,6 +25,7 @@ enum layer_names {
 
 // full redifined
 #define CtrlSpace_Ctrl LT(0, KC_SPC)
+#define Back_or_toggleChamp LT(15, KC_SPC)
 
 enum custom_keycodes {
     Range_display = SAFE_RANGE, //
@@ -62,24 +63,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [Lol_classique] =  LAYOUT(
-     ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+     ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_A,        FR_Z,        FR_E,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
-    KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                    KC_SPC,   CtrlSpace_Ctrl,        FR_B,             /*||*/     ____,        ____,        TO(Graphite)
+    KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
+                                KC_SPC,   CtrlSpace_Ctrl,        Back_or_toggleChamp,  /*||*/     ____,        ____,        TO(Graphite)
     ),
 
     [Lol_Varus_Cait] =  LAYOUT(
-     ____   ,       FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+     ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_Z,        FR_E,        FR_A,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
-    KC_LSFT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,       /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                   KC_SPC,   CtrlSpace_Ctrl,        FR_B,              /*||*/    ____,        ____,        TO(Graphite)
+    KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
+                                KC_SPC,   CtrlSpace_Ctrl,        Back_or_toggleChamp,  /*||*/    ____,        ____,        TO(Graphite)
     ),
 
 
     [Wakfu_combat] =  LAYOUT(
-    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,       ____,        ____,        ____,        ____,        LALT(KC_TAB),      /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
@@ -107,18 +108,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool range_displayed = false;
 
+void toogle_C(keyrecord_t* record) {
+    if (record->event.pressed) {
+        range_displayed = !range_displayed;
+        if (!range_displayed) {
+            unregister_code(FR_C);
+        } else {
+            register_code(FR_C); // danger la version 16 ne fait pas ce qu'on veut, elle "unregister" si on touche une autre key
+        }
+    }
+}
+
+// call at every layer change
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (range_displayed) {
+        range_displayed = !range_displayed;
+        unregister_code(FR_C);
+    }
+    return state;
+}
+
 // a quoi sert le bool de retour ?
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case Range_display:
-            if (record->event.pressed) {
-                range_displayed = !range_displayed;
-                if (!range_displayed) {
-                    unregister_code(FR_C);
-                } else {
-                    register_code(FR_C); // danger la version 16 ne fait pas ce qu'on veut, elle "unregister" si on touche une autre key
-                }
-            }
+            toogle_C(record);
             break;
 
         case Enter_Maj:
@@ -145,6 +159,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                         unregister_code(KC_LEFT_CTRL); // Release.
                     }
                 }
+            }
+            return false;
+        case Back_or_toggleChamp:
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(FR_B); // Intercept tap
+            } else {
+                toogle_C(record); // hold
             }
             return false;
     }
