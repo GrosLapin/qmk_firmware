@@ -12,6 +12,7 @@
 
 enum layer_names {
     Graphite, //
+    Symboles,
     Azerty,
     Lol_classique,
     Lol_Varus_Cait,
@@ -32,13 +33,14 @@ enum custom_keycodes {
 };
 
 const char* layer_names_str[] = {
-    "Graphite",        //
-    "Azerty",          //
-    "Lol classique",   //
-    "Lol  Varus_Cait", //
-    "Wakfu Combat",    //
-    "Dispatch layers", //
-    "Empty"            //
+    "Graphite",         //
+    "Symboles",         //
+    "Azerty",           //
+    "Lol other champ ", //
+    "Lol  Varus_Cait",  //
+    "Wakfu Combat",     //
+    "Dispatch layers",  //
+    "Empty"             //
 };
 
 // Use `A_B` in your layout...
@@ -46,12 +48,21 @@ const char* layer_names_str[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [Graphite] = LAYOUT(
-    KC_ESCAPE/* */, FR_AMPR/* */,FR_EACU/* */,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_LPRN,    /*||*/    FR_MINS,    FR_EGRV,        FR_UNDS,        FR_CCED,        FR_AGRV,     KC_BACKSPACE,
-    KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,       /*||*/    FR_COLN/*:*/,   FR_F,       FR_O,           FR_U,           FR_J,        FR_CIRC,
-    KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,       /*||*/    FR_Y,           FR_H,       FR_A,           FR_E,           FR_I,        FR_UGRV,
-    KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,       /*||*/    FR_K,           FR_P,       FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
-                                  KC_LEFT_ALT,      KC_SPC,   OSL(Dispatch_layers),    /*||*/      KC_LEFT_CTRL,        Enter_Maj,          KC_BACKSPACE
+    KC_ESCAPE/* */, FR_AMPR/*&*/,FR_EACU/*é*/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_LPRN/*(*/,/*||*/    FR_MINS/*-*/,   FR_EGRV/*è*/,FR_UNDS/*_*/,    FR_CCED/*ç*/,    FR_AGRV/*à*/,     OSL(Dispatch_layers),
+    KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,        /*||*/    FR_UNDS/*_*/,  FR_F,        FR_O,           FR_U,           FR_J,        FR_CIRC,
+    KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,        /*||*/    FR_Y,           FR_H,        FR_A,           FR_E,           FR_I,        FR_UGRV,
+    KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,        /*||*/    FR_K,           FR_P,        FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
+                                  OSL(Symboles),      KC_SPC,  KC_LEFT_ALT ,            /*||*/      KC_LEFT_CTRL,        Enter_Maj,          KC_BACKSPACE
 
+    ),
+
+    // je peux mettre des truc sur le pousse gauche comme c'est sticky
+    [Symboles] =  LAYOUT(
+    ____,           ____,        ____,        ____,         ____,          ____,        /*||*/    ____,            ____,        ____,          ____,           ____,          ____,
+    ____,           FR_CIRC/*^*/,FR_ASTR/***/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_CCED/*ç*/,/*||*/    FR_EGRV/*è*/,    FR_PERC/*%*/,FR_EACU/*é*/,  FR_LABK/*<*/,   FR_RABK/*>*/,  ____,
+    ____,           FR_DOT/*.*/, FR_LPRN/*(*/,FR_RPRN/*)*/, FR_SLSH/*/*/,  ____,        /*||*/    FR_AGRV/*à*/,    FR_LCBR/*{*/,FR_RCBR/*}*/,  FR_COLN/*:*/,   FR_EQL/*=*/,   ____,
+    ____,           FR_HASH/*#*/,FR_AMPR/*&*/,FR_EXLM/*!*/, FR_BSLS /*\\*/,____,        /*||*/    ____,            FR_LBRC/*[*/,FR_RBRC/*]*/,  FR_PLUS/*+*/,   FR_MINS/*-*/,  ____,
+                                    ____,     ____,        ____,                        /*||*/    FR_DQUO/*"*/,        FR_EGRV/*è*/,        FR_QUOT/*'*/
     ),
 
     [Azerty] =  LAYOUT(
@@ -63,28 +74,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [Lol_classique] =  LAYOUT(
-     ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    ____   ,        FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    KC_TAB,         FR_E,        FR_A,        FR_Z,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
+    KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
+                                KC_SPC,   CtrlSpace_Ctrl,        Back_or_toggleChamp,  /*||*/    ____,        ____,        TO(Graphite)
+    ),
+
+    [Lol_Varus_Cait] =  LAYOUT(
+
+    ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_A,        FR_Z,        FR_E,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
                                 KC_SPC,   CtrlSpace_Ctrl,        Back_or_toggleChamp,  /*||*/     ____,        ____,        TO(Graphite)
     ),
 
-    [Lol_Varus_Cait] =  LAYOUT(
-     ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
-    KC_TAB,         FR_Z,        FR_E,        FR_A,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
-    KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
-                                KC_SPC,   CtrlSpace_Ctrl,        Back_or_toggleChamp,  /*||*/    ____,        ____,        TO(Graphite)
-    ),
-
 
     [Wakfu_combat] =  LAYOUT(
-    ____,       ____,        ____,        ____,        ____,        LALT(KC_TAB),      /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,       ____,        ____,        ____,        ____,         FR_R,             /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
     S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-                                    KC_SPC,     KC_MS_BTN1,   FR_R,                    /*||*/    ____,        ____,        TO(Graphite)
+                                    KC_SPC,     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        ____,        TO(Graphite)
     ),
 
 
