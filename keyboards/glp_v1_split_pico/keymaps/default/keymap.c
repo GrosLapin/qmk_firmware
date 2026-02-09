@@ -44,7 +44,9 @@ const char* layer_names_str[] = {
 };
 
 // Use `A_B` in your layout...
+// mode tap : https://docs.qmk.fm/mod_tap
 
+// Pb : il me faut 2 mains pour copy past
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [Graphite] = LAYOUT(
@@ -52,17 +54,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,        /*||*/    FR_UNDS/*_*/,  FR_F,        FR_O,           FR_U,           FR_J,        FR_CIRC,
     KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,        /*||*/    FR_Y,           FR_H,        FR_A,           FR_E,           FR_I,        FR_UGRV,
     KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,        /*||*/    FR_K,           FR_P,        FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
-                                  OSL(Symboles),      KC_SPC,  KC_LEFT_ALT ,            /*||*/      KC_LEFT_CTRL,        Enter_Maj,          KC_BACKSPACE
+                                  OSL(Symboles),      KC_SPC,  KC_LEFT_ALT ,            /*||*/      LCTL_T(KC_TAB),        Enter_Maj,          KC_BACKSPACE
 
     ),
 
     // je peux mettre des truc sur le pousse gauche comme c'est sticky
     [Symboles] =  LAYOUT(
     ____,           ____,        ____,        ____,         ____,          ____,        /*||*/    ____,            ____,        ____,          ____,           ____,          ____,
-    ____,           FR_CIRC/*^*/,FR_ASTR/***/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_CCED/*ç*/,/*||*/    FR_EGRV/*è*/,    FR_PERC/*%*/,FR_EACU/*é*/,  FR_LABK/*<*/,   FR_RABK/*>*/,  ____,
-    ____,           FR_DOT/*.*/, FR_LPRN/*(*/,FR_RPRN/*)*/, FR_SLSH/*/*/,  ____,        /*||*/    FR_AGRV/*à*/,    FR_LCBR/*{*/,FR_RCBR/*}*/,  FR_COLN/*:*/,   FR_EQL/*=*/,   ____,
+    ____,           FR_CIRC/*^*/,FR_ASTR/***/,FR_CCED/*ç*/, FR_EGRV/*è*/,  ____,        /*||*/    FR_AT  /*@*/,    FR_PERC/*%*/,FR_EACU/*é*/,  FR_LABK/*<*/,   FR_RABK/*>*/,  ____,
+    ____,           FR_DOT/*.*/, FR_LPRN/*(*/,FR_RPRN/*)*/, FR_SLSH/*/*/,  ____,        /*||*/    FR_COLN/*:*/,    FR_LCBR/*{*/,FR_RCBR/*}*/,  FR_AGRV/*à*/,   FR_EQL/*=*/,   ____,
     ____,           FR_HASH/*#*/,FR_AMPR/*&*/,FR_EXLM/*!*/, FR_BSLS /*\\*/,____,        /*||*/    ____,            FR_LBRC/*[*/,FR_RBRC/*]*/,  FR_PLUS/*+*/,   FR_MINS/*-*/,  ____,
-                                    ____,     ____,        ____,                        /*||*/    FR_DQUO/*"*/,        FR_EGRV/*è*/,        FR_QUOT/*'*/
+                                    FR_EGRV/*è*/,     ____,        ____,                /*||*/    FR_DQUO/*"*/,       FR_EACU/*é*/,        FR_QUOT/*'*/
     ),
 
     [Azerty] =  LAYOUT(
@@ -93,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [Wakfu_combat] =  LAYOUT(
     ____,       ____,        ____,        ____,        ____,         FR_R,             /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
-                                    KC_SPC,     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        ____,        TO(Graphite)
+    KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        S(FR_H),     KC_UP,         FR_K,        ____,       ____,
+    FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    FR_Q,        KC_LEFT,     KC_DOWN,       KC_RIGHT,    FR_I,       ____,
+    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        FR_S,        FR_O,          FR_P,        ____,       ____,
+                                    KC_SPC,     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        KC_TAB,        TO(Graphite)
     ),
 
 
