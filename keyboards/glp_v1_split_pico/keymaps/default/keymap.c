@@ -13,12 +13,20 @@
 enum layer_names {
     Graphite, //
     Symboles,
+    Nombres,
     Azerty,
     Lol_classique,
     Lol_Varus_Cait,
     Wakfu_combat,
     Dispatch_layers,
     Empty
+};
+
+const uint16_t PROGMEM combo_to_number[]      = {FR_T, FR_S, COMBO_END};
+const uint16_t PROGMEM combo_to_number_test[] = {FR_M, FR_C, COMBO_END};
+combo_t                key_combos[]           = {
+    COMBO(combo_to_number, TO(Nombres)),      //
+    COMBO(combo_to_number_test, MO(Nombres)), //
 };
 
 // tap_hold
@@ -35,6 +43,7 @@ enum custom_keycodes {
 const char* layer_names_str[] = {
     "Graphite",         //
     "Symboles",         //
+    "Nombres",          //
     "Azerty",           //
     "Lol other champ ", //
     "Lol  Varus_Cait",  //
@@ -50,11 +59,11 @@ const char* layer_names_str[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [Graphite] = LAYOUT(
-    KC_ESCAPE/* */, FR_AMPR/*&*/,FR_EACU/*é*/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_LPRN/*(*/,/*||*/    FR_MINS/*-*/,   FR_EGRV/*è*/,FR_UNDS/*_*/,    FR_CCED/*ç*/,    FR_AGRV/*à*/,     OSL(Dispatch_layers),
-    KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,        /*||*/    FR_UNDS/*_*/,  FR_F,        FR_O,           FR_U,           FR_J,        FR_CIRC,
-    KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,        /*||*/    FR_Y,           FR_H,        FR_A,           FR_E,           FR_I,        FR_UGRV,
-    KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,        /*||*/    FR_K,           FR_P,        FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
-                                  OSL(Symboles),      KC_SPC,  KC_LEFT_ALT ,            /*||*/      LCTL_T(KC_TAB),        Enter_Maj,          KC_BACKSPACE
+    KC_ESCAPE/* */, FR_AMPR/*&*/,FR_EACU/*é*/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_LPRN/*(*/,     /*||*/    FR_MINS/*-*/,   FR_EGRV/*è*/,FR_UNDS/*_*/,    FR_CCED/*ç*/,    FR_AGRV/*à*/,     OSL(Dispatch_layers),
+    KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,             /*||*/    FR_UNDS/*_*/,   FR_F,        FR_O,           FR_U,           FR_J,        FR_CIRC,
+    KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,             /*||*/    FR_Y,           FR_H,        FR_A,           FR_E,           FR_I,        FR_UGRV,
+    KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,             /*||*/    FR_K,           FR_P,        FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
+                                  OSL(Symboles),    KC_SPC,  KC_LEFT_ALT ,                   /*||*/      LCTL_T(KC_TAB),        Enter_Maj,          KC_BACKSPACE
 
     ),
 
@@ -63,8 +72,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____,           ____,        ____,        ____,         ____,          ____,        /*||*/    ____,            ____,        ____,          ____,           ____,          ____,
     ____,           FR_CIRC/*^*/,FR_ASTR/***/,FR_CCED/*ç*/, FR_EGRV/*è*/,  ____,        /*||*/    FR_AT  /*@*/,    FR_PERC/*%*/,FR_EACU/*é*/,  FR_LABK/*<*/,   FR_RABK/*>*/,  ____,
     ____,           FR_DOT/*.*/, FR_LPRN/*(*/,FR_RPRN/*)*/, FR_SLSH/*/*/,  ____,        /*||*/    FR_COLN/*:*/,    FR_LCBR/*{*/,FR_RCBR/*}*/,  FR_AGRV/*à*/,   FR_EQL/*=*/,   ____,
-    ____,           FR_HASH/*#*/,FR_AMPR/*&*/,FR_EXLM/*!*/, FR_BSLS /*\\*/,____,        /*||*/    ____,            FR_LBRC/*[*/,FR_RBRC/*]*/,  FR_PLUS/*+*/,   FR_MINS/*-*/,  ____,
+    ____,           FR_HASH/*#*/,FR_AMPR/*&*/,FR_EXLM/*!*/, FR_BSLS /*\\*/,____,        /*||*/    FR_UGRV/*ù*/,    FR_LBRC/*[*/,FR_RBRC/*]*/,  FR_PLUS/*+*/,   FR_MINS/*-*/,  ____,
                                     FR_EGRV/*è*/,     ____,        ____,                /*||*/    FR_DQUO/*"*/,       FR_EACU/*é*/,        FR_QUOT/*'*/
+    ),
+
+    [Nombres] =  LAYOUT(
+    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        ____,        ____,          ____,        ____,       TO(Graphite),
+    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P7,       KC_P8,         KC_P9,        ____,       ____,
+    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P4,       KC_P5,         KC_P6,        ____,       ____,
+    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P1,       KC_P2,         KC_P3,        ____,       ____,
+                                    ____,     ____,        TO(Nombres),                /*||*/    ____,        TO(Graphite),     KC_P0
     ),
 
     [Azerty] =  LAYOUT(
@@ -76,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [Lol_classique] =  LAYOUT(
-    ____   ,        FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    ____   ,        FR_AMPR,     FR_EACU,     KC_LEFT_ALT, KC_LEFT_ALT,    KC_LEFT_ALT,/*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_E,        FR_A,        FR_Z,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
@@ -85,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [Lol_Varus_Cait] =  LAYOUT(
 
-    ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT, FR_QUOT,        FR_LPRN,    /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
+    ____   ,       FR_AMPR,     FR_EACU,     KC_LEFT_ALT,  KC_LEFT_ALT,    KC_LEFT_ALT,/*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     Range_display,  FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,        FR_P,       /*||*/    FR_MINS,        FR_EGRV,    FR_UNDS,        FR_CCED,        FR_AGRV,     FR_RPRN,
     KC_TAB,         FR_A,        FR_Z,        FR_E,        FR_R,           FR_T,       /*||*/    FR_Y,           FR_U,       FR_I,           FR_O,           FR_P,        FR_CIRC,
     KC_LEFT_ALT,        FR_Q,        FR_S,        FR_D,        FR_F,           FR_G,   /*||*/    FR_H,           FR_J,       FR_K,           FR_L,           FR_M,        FR_UGRV,
@@ -94,11 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [Wakfu_combat] =  LAYOUT(
-    ____,       ____,        ____,        ____,        ____,         FR_R,             /*||*/    ____,        ____,        ____,          ____,        ____,       ____,
+    ____,       ____,        ____,        ____,        ____,         FR_R,             /*||*/    KC_P1,       KC_P2,       KC_P3,         KC_P4,       KC_P5,      KC_P6,
     KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        S(FR_H),     KC_UP,         FR_K,        ____,       ____,
     FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    FR_Q,        KC_LEFT,     KC_DOWN,       KC_RIGHT,    FR_I,       ____,
-    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        FR_S,        FR_O,          FR_P,        ____,       ____,
-                                    KC_SPC,     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        KC_TAB,        TO(Graphite)
+    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        FR_S,        FR_O,          FR_Z,        FR_P,       ____,
+                    LSFT_T(KC_SPC),     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        KC_TAB,        TO(Graphite)
     ),
 
 
@@ -130,6 +147,18 @@ void toogle_C(keyrecord_t* record) {
         } else {
             register_code(FR_C); // danger la version 16 ne fait pas ce qu'on veut, elle "unregister" si on touche une autre key
         }
+    }
+}
+void force_C(keyrecord_t* record) {
+    if (record->event.pressed) {
+        if (!range_displayed) {
+            register_code(FR_C); // danger la version 16 ne fait pas ce qu'on veut, elle "unregister" si on touche une autre key
+        } else {
+            unregister_code(FR_C);
+            register_code(FR_C); // danger la version 16 ne fait pas ce qu'on veut, elle "unregister" si on touche une autre key
+        }
+
+        range_displayed = true;
     }
 }
 
@@ -179,7 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if (record->tap.count && record->event.pressed) {
                 tap_code16(FR_B); // Intercept tap
             } else {
-                toogle_C(record); // hold
+                force_C(record); // hold
             }
             return false;
     }
