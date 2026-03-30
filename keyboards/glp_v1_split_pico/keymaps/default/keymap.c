@@ -25,8 +25,8 @@ enum layer_names {
 const uint16_t PROGMEM combo_to_number[]      = {FR_T, FR_S, COMBO_END};
 const uint16_t PROGMEM combo_to_number_test[] = {FR_M, FR_C, COMBO_END};
 combo_t                key_combos[]           = {
-    COMBO(combo_to_number, TO(Nombres)),      //
-    COMBO(combo_to_number_test, MO(Nombres)), //
+    COMBO(combo_to_number, TO(Nombres)),       //
+    COMBO(combo_to_number_test, OSL(Nombres)), // mo si jeu veux juste maintenair
 };
 
 // tap_hold
@@ -54,16 +54,17 @@ const char* layer_names_str[] = {
 
 // Use `A_B` in your layout...
 // mode tap : https://docs.qmk.fm/mod_tap
-
+// OSL ; maintient ou next touche
+// https://docs.qmk.fm/keycodes#layer-switching
 // Pb : il me faut 2 mains pour copy past
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [Graphite] = LAYOUT(
-    KC_ESCAPE/* */, FR_AMPR/*&*/,FR_EACU/*é*/,FR_DQUO/*"*/, FR_QUOT/*'*/,  FR_LPRN/*(*/,     /*||*/    FR_MINS/*-*/,   FR_EGRV/*è*/,FR_UNDS/*_*/,    FR_CCED/*ç*/,    FR_AGRV/*à*/,     OSL(Dispatch_layers),
+    KC_ESCAPE/* */, KC_F2,       C(FR_C),     C(FR_V),      C(FR_X),    MT(MOD_RGUI,FR_LPRN),/*||*/    MT(MOD_RGUI,KC_DELETE), KC_LEFT ,KC_DOWN,       KC_RIGHT,     KC_UP,     OSL(Dispatch_layers),
     KC_TAB,         FR_B,        FR_L,        FR_D,         FR_W,          FR_Z,             /*||*/    FR_UNDS/*_*/,   FR_F,        FR_O,           FR_U,           FR_J,        FR_CIRC,
     KC_LEFT_SHIFT,  FR_N,        FR_R,        FR_T,         FR_S,          FR_G,             /*||*/    FR_Y,           FR_H,        FR_A,           FR_E,           FR_I,        FR_UGRV,
     KC_LEFT_CTRL,   FR_Q,        FR_X,        FR_M,         FR_C,          FR_V,             /*||*/    FR_K,           FR_P,        FR_SCLN/*;*/,   FR_COMM/*,*/,   FR_MINS,     FR_EXLM,
-                                  OSL(Symboles),    KC_SPC,  KC_LEFT_ALT ,                   /*||*/      LCTL_T(KC_TAB),        Enter_Maj,          KC_BACKSPACE
+                                  MO(Symboles),    KC_SPC,  KC_LEFT_ALT ,                   /*||*/      LCTL_T(KC_TAB),        Enter_Maj,          KC_BACKSPACE
 
     ),
 
@@ -77,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [Nombres] =  LAYOUT(
-    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        ____,        ____,          ____,        ____,       TO(Graphite),
-    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P7,       KC_P8,         KC_P9,        ____,       ____,
-    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P4,       KC_P5,         KC_P6,        ____,       ____,
-    ____,       ____,     ____,     ____,     ____,        ____,                       /*||*/    ____,        KC_P1,       KC_P2,         KC_P3,        ____,       ____,
-                                    ____,     ____,        TO(Nombres),                /*||*/    ____,        TO(Graphite),     KC_P0
+    ____,       ____,     ____,     ____,     ____,           ____,              /*||*/    ____,        ____,        KC_P0,          ____,        ____,       TO(Graphite),
+    ____,       ____,     ____,     KC_UP,    ____,           ____,              /*||*/    ____,        KC_P7,       KC_P8,         KC_P9,        ____,       ____,
+    ____,       ____,     KC_LEFT,  KC_DOWN,  KC_RIGHT,       ____,              /*||*/    KC_P0,       KC_P4,       KC_P5,         KC_P6,        ____,       ____,
+    ____,       ____,     ____,     ____,     ____,           ____,              /*||*/    ____,        KC_P1,       KC_P2,         KC_P3,        ____,       ____,
+                            TO(Graphite),     ____,        KC_LEFT_ALT,                /*||*/    ____,        ____,     ____
     ),
 
     [Azerty] =  LAYOUT(
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____,       ____,        ____,        ____,        ____,         FR_R,             /*||*/    KC_P1,       KC_P2,       KC_P3,         KC_P4,       KC_P5,      KC_P6,
     KC_F6,      KC_F1,       KC_F2,       KC_F3,       KC_F4,        KC_F5,            /*||*/    ____,        S(FR_H),     KC_UP,         FR_K,        ____,       ____,
     FR_MINS,    FR_AMPR,     FR_EACU,     FR_DQUO,     FR_QUOT,      FR_LPRN,          /*||*/    FR_Q,        KC_LEFT,     KC_DOWN,       KC_RIGHT,    FR_I,       ____,
-    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        FR_S,        FR_O,          FR_Z,        FR_P,       ____,
+    S(FR_MINS), S(FR_AMPR),  S(FR_EACU),  S(FR_DQUO),  S(FR_QUOT),   S(FR_LPRN),       /*||*/    ____,        FR_O,        FR_C,          FR_Z,        FR_P,       ____,
                     LSFT_T(KC_SPC),     KC_MS_BTN1,   LALT(KC_TAB),                    /*||*/    ____,        KC_TAB,        TO(Graphite)
     ),
 
